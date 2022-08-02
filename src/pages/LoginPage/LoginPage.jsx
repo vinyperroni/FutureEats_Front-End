@@ -1,5 +1,10 @@
+import { Header } from "../../components/Header/Header"
+
 export default function LoginPage() {
-    return <div>
-        <h1>Login</h1>
-    </div>
+    return (
+        <div>
+            <Header />
+            <h1>LoginPage</h1>
+        </div>
+    )
 }
