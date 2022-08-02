@@ -133,7 +133,7 @@ const SignUpForm = () => {
                 />
             </FormControl>
             <FormControl variant="outlined" focused required color="secondary">
-                <InputLabel htmlFor="confirmPwd">Password</InputLabel>
+                <InputLabel htmlFor="confirmPwd">Confirm</InputLabel>
                 <OutlinedInput
                     id="confirmPwd"
                     type={values.showConfirmPassword ? 'text' : 'password'}
