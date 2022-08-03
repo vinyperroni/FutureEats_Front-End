@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import {  goBack } from "../../routes/Coordinator";
+import { goBack } from "../../routes/Coordinator";
 
 const Section = styled.section`
     position: relative;
@@ -25,7 +25,7 @@ const Section = styled.section`
 
 export const Header = () => {
     const location = useLocation();
-    console.log(location.pathname);
+
     return (
         <Section>
             {location.pathname !== "/login" && location.pathname !== "/home" && location.pathname !== "/cart" && location.pathname !== "/profile" &&
