@@ -2,15 +2,34 @@ import { useForm } from "../../hooks/useForm"
 import React from "react"
 import { Form } from "./styled"
 import { Button, TextField } from "@mui/material"
+import { AddAddressPUT, Header } from "../../api/manifest"
+import { goToHome } from "../../routes/Coordinator"
+import { useNavigate } from "react-router-dom"
+import axios from "axios"
 
 const AdressForm = () => {
+    const navigate = useNavigate()
     const [form, onChange, clearInput] = useForm({ street: "", number: "", neighbourhood: "", city: "", state: "", complement: ""})
 
 
     const onSubmitForm = (event) => {
         event.preventDefault();
         console.log("foi");
-    }    
+        addAddress()
+    }   
+    
+    const addAddress = () => {
+        console.log(Header, form);
+        axios.put(AddAddressPUT, form, {headers: Header})
+        .then((res) => {
+            localStorage.setItem("tknFutureEats", res.data.token)
+            goToHome(navigate)
+            clearInput()
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
 
     return (
         <Form onSubmit={onSubmitForm}>
@@ -42,7 +61,7 @@ const AdressForm = () => {
                 name="complement"
                 value={form.complement}
                 onChange={onChange}
-                required
+                
                 placeholder="Apto./Bloco"
                 focused
             />

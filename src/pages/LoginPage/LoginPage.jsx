@@ -1,7 +1,9 @@
 import { useEffect } from "react"
 import styled from "styled-components"
-import logo from "../../assets/logo-future-eats-invert.png"
+import logo from "../../assets/logo-future-eats-invert-small.png"
 import { Header } from "../../components/Header/Header"
+import LoginForm from "./LoginForm"
+import { LoginPageContainer } from "./styled"
 
 const Section = styled.section`
     display: flex;
@@ -19,13 +21,13 @@ export default function LoginPage() {
     }, []);
 
     return (
-        <div>
-            <Header />
-            <Section>
-                <img src={logo} alt="" style={{maxWidth:"128px", height:"100%"}}/>
-                <br />
-                <h1>LoginPage</h1>
-            </Section>
-        </div>
+        <>
+        <LoginPageContainer>
+            <img src={logo} alt="logo" />
+            <p>Entrar</p>
+            <LoginForm/>
+
+        </LoginPageContainer>
+        </>
     )
 }

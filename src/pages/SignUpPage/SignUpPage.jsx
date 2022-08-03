@@ -6,14 +6,16 @@ import { Header } from "../../components/Header/Header";
 
 
 
-export default function SignUpPage() {   
-
+export default function SignUpPage() { 
+    
     return (
-        <SignUpContainer>
-            <Header/>
+        <>
+        <Header/>
+        <SignUpContainer>           
             <img src={logo} alt="logo" />
             <p>Cadastrar</p>
             <SignUpForm/>
         </SignUpContainer>
+        </>
     )
 }
