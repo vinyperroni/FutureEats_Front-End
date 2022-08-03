@@ -8,13 +8,11 @@ const Section = styled.section`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
     height: 100%;
     border: solid red;
 `
-const Img = styled.img`
-    width: 35%;
-    height: 100%;
-`
+
 export default function LoginPage() {
     useEffect(() => {
         
@@ -24,7 +22,7 @@ export default function LoginPage() {
         <div>
             <Header />
             <Section>
-                <Img src={logo} alt="" />
+                <img src={logo} alt="" style={{maxWidth:"128px", height:"100%"}}/>
                 <br />
                 <h1>LoginPage</h1>
             </Section>
