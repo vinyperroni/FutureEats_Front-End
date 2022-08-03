@@ -1,4 +1,4 @@
-export const Header = {
+export const Headers = {
     "Content-Type": "application/json",
     auth: window.localStorage.getItem("tknFutureEats")
 }
