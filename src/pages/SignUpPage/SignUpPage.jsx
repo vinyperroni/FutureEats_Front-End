@@ -6,8 +6,7 @@ import { Header } from "../../components/Header/Header";
 
 
 
-export default function SignUpPage() {
-    
+export default function SignUpPage() {   
 
     return (
         <SignUpContainer>
