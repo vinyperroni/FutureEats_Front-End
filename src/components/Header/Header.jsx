@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { goBack } from "../../routes/Coordinator";
 
@@ -24,12 +24,13 @@ const Section = styled.section`
 `
 
 export const Header = () => {
+    const navigate = useNavigate()
     const location = useLocation();
 
     return (
         <Section>
             {location.pathname !== "/login" && location.pathname !== "/home" && location.pathname !== "/cart" && location.pathname !== "/profile" &&
-                <ChevronLeftIcon onClick={() => goBack()} style={{ cursor: "pointer", fontSize: "2em", position: "absolute", left: "0.25em" }} />
+                <ChevronLeftIcon onClick={() => goBack(navigate)} style={{ cursor: "pointer", fontSize: "2em", position: "absolute", left: "0.25em" }} />
             }
             {location.pathname === "/search" && <h1>Busca</h1>}
             {location.pathname === "/cart" && <h1>Meu carrinho</h1>}

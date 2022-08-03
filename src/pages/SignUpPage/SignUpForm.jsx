@@ -183,6 +183,9 @@ const SignUpForm = () => {
             </FormControl>
 
             <Button 
+            sx={{
+                textTransform:"none"
+            }}
             variant="contained"
             type="submit"
             >Criar</Button>        
