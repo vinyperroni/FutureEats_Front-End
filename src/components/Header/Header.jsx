@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { BsChevronLeft } from 'react-icons/bs';
+import {  goBack } from "../../routes/Coordinator";
 
 const Section = styled.section`
     position: relative;
@@ -28,7 +29,7 @@ export const Header = () => {
     return (
         <Section>
             {location.pathname !== "/login" && location.pathname !== "/home" && location.pathname !== "/cart" && location.pathname !== "/profile" &&
-                <BsChevronLeft size={24} style={{ cursor: "pointer", position: "absolute", left: "0.5em" }} />
+                <BsChevronLeft size={24} onClick={()=>goBack} style={{ cursor: "pointer", position: "absolute", left: "0.5em" }} />
             }
             {location.pathname === "/" && <h1>FutureEats</h1>}
             {location.pathname === "/search" && <h1>Busca</h1>}
