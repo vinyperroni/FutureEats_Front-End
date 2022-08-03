@@ -2,7 +2,7 @@ import { useForm } from "../../hooks/useForm"
 import React from "react"
 import { Form } from "./styled"
 import { Button, TextField } from "@mui/material"
-import { AddAddressPUT, Header } from "../../api/manifest"
+import { AddAddressPUT, Headers } from "../../api/manifest"
 import { goToHome } from "../../routes/Coordinator"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
@@ -19,8 +19,8 @@ const AdressForm = () => {
     }   
     
     const addAddress = () => {
-        console.log(Header, form);
-        axios.put(AddAddressPUT, form, {headers: Header})
+        console.log(Headers, form);
+        axios.put(AddAddressPUT, form, {headers: Headers})
         .then((res) => {
             localStorage.setItem("tknFutureEats", res.data.token)
             goToHome(navigate)
