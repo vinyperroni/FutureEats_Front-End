@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
-import { BsChevronLeft } from 'react-icons/bs';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import {  goBack } from "../../routes/Coordinator";
 
 const Section = styled.section`
@@ -18,7 +18,7 @@ const Section = styled.section`
         width: 100%;
         text-align: center;
         font-size: 1.5em;
-        font-weight: bold;
+        font-weight: 500;
         color: black;
     }
 `
@@ -29,9 +29,8 @@ export const Header = () => {
     return (
         <Section>
             {location.pathname !== "/login" && location.pathname !== "/home" && location.pathname !== "/cart" && location.pathname !== "/profile" &&
-                <BsChevronLeft size={24} onClick={()=>goBack} style={{ cursor: "pointer", position: "absolute", left: "0.5em" }} />
+                <ChevronLeftIcon onClick={() => goBack()} style={{ cursor: "pointer", fontSize: "2em", position: "absolute", left: "0.25em" }} />
             }
-            {location.pathname === "/" && <h1>FutureEats</h1>}
             {location.pathname === "/search" && <h1>Busca</h1>}
             {location.pathname === "/cart" && <h1>Meu carrinho</h1>}
             {location.pathname === "/profile" && <h1>Meu perfil</h1>}
