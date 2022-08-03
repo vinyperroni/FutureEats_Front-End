@@ -5,6 +5,13 @@ import { Search } from "@mui/icons-material"
 import BlackScreen from "../../components/BlackScreen/BlackScreen"
 import axios from "axios"
 import { Headers, ListRestaurantGET } from "../../api/manifest"
+import styled from "styled-components";
+import { HomeCards } from "../../components/HomeCards/HomeCards"
+
+const CategoryFilter = styled.div`
+    display:flex;
+
+`
 
 export default function HomePage() {
     const [screenOn, setScreenOn] = useState(true)
@@ -52,7 +59,7 @@ export default function HomePage() {
     })
     return <div>
         {renderBlackScreen()}
-        <h1>Home - Feed</h1>
+        <h3>FutureEats</h3>
         <TextField
             id="outlined-search"
             placeholder="Restaurantes"
@@ -61,6 +68,9 @@ export default function HomePage() {
                 startAdornment: <InputAdornment position="start"><Search/></InputAdornment>,
               }}
             />
-            {restaurantCategory}
+            <CategoryFilter>{restaurantCategory}</CategoryFilter>
+            {restaurants.map(restaurant => (
+                <HomeCards key = {restaurant.id} restaurant = {restaurant}/>
+            ))  }
     </div>
 }
