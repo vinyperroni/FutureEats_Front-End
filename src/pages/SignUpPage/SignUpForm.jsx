@@ -11,9 +11,16 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Button } from "@mui/material"
 
+import { useNavigate } from "react-router-dom"
+
+import axios from "axios";
+import { SignupPOST } from "../../api/manifest"
+import { goToAddress } from "../../routes/Coordinator";
+
 const SignUpForm = () => {
+    const navigate = useNavigate()
     const [form, onChange, clearInput] = useForm({ name: "", email: "", cpf: "", password: ""})
-    const [confirmPwd, setconfirmPwd] = useState("")
+    const [confirmPwd, setConfirmPwd] = useState("")
     
     const [values, setValues] = React.useState({
         showPassword: false,
@@ -21,7 +28,7 @@ const SignUpForm = () => {
     });
 
     const onChangeConfirm = (event) => {
-        setconfirmPwd(event.target.value)
+        setConfirmPwd(event.target.value)
     }
 
     const handleClickShowPassword = (input) => {
@@ -51,7 +58,22 @@ const SignUpForm = () => {
     const onSubmitForm = (event) => {
         event.preventDefault();
         console.log("foi");
-    }    
+        signUp()
+    }
+    
+    const signUp = () => {
+        console.log(form);
+        axios.post(SignupPOST, form)
+        .then((res) => {
+            console.log(res);
+            localStorage.setItem("tknFutureEats", res.data.token)
+            goToAddress(navigate)
+            clearInput()
+            setConfirmPwd("")
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
 
     function validatePassword(){
         const password = document.getElementById("password")
@@ -113,7 +135,7 @@ const SignUpForm = () => {
                     value={form.password}
                     name="password"
                     onChange={onChange}
-                    placeholder="Mínimo de 6 caracteres"
+                    placeholder="Mínimo 6 caracteres"
                     inputProps={{ min: 6}}
                     onKeyUp={validatePassword}
                     label="Password"
