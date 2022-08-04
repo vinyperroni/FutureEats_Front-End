@@ -10,6 +10,7 @@ export default function SearchPage() {
         <Header/>
         <SearchPageContainer>
             <TextField
+            autoFocus
             id="input-with-icon-textfield"
             placeholder="Busca"
             InputProps={{
