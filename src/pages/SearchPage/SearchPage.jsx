@@ -21,6 +21,7 @@ export default function SearchPage() {
         <Header/>
         <SearchPageContainer>
             <TextField
+            color="secondary"
             autoFocus
             id="input-with-icon-textfield"
             value={search}
