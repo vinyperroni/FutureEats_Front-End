@@ -16,10 +16,20 @@ export default function HomePage() {
     const {restaurants} = useContext(GlobalStateContext)
     const navigate = useNavigate()          
 
-    console.log(restaurants)
     const restaurantCategory = restaurants && restaurants.map((r)=>{
         return(<p>{r.category}</p>)
     })
+
+    // const filterRestaurantC = restaurants && restaurants.filter((r)=>{
+    //     switch (r.category) {
+    //         case value:
+                
+    //             break;
+        
+    //         default:
+    //             break;
+    //     }
+    // })
     return( 
     <HomePageContainer>
         <h3>FutureEats</h3>
