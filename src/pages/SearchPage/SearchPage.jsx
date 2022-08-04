@@ -1,10 +1,21 @@
 import { TextField , InputAdornment } from "@mui/material"
-import React from "react"
+import React, { useState } from "react"
 import { SearchPageContainer } from "./styled"
 import lupa from "../../assets/search.png"
 import {Header} from "../../components/Header/Header"
+import { HomeCards } from "../../components/HomeCards/HomeCards"
+import { useContext } from "react"
+import { GlobalStateContext } from "../../GlobalState/GlobalStateContext"
+
 
 export default function SearchPage() {
+    const {restaurants} = useContext(GlobalStateContext)
+    const [search, setSearch] = useState("")
+
+    const onSearch = (event) => {
+        setSearch(event.target.value)
+    }
+
     return (
         <>
         <Header/>
@@ -12,6 +23,8 @@ export default function SearchPage() {
             <TextField
             autoFocus
             id="input-with-icon-textfield"
+            value={search}
+            onChange={onSearch}
             placeholder="Busca"
             InputProps={{
             startAdornment: (
@@ -20,7 +33,15 @@ export default function SearchPage() {
                 </InputAdornment>
             ),
             }}
-        />
+            />
+            {search === "" 
+            ? <p>Busque por nome de restaurante</p> 
+            : restaurants && restaurants.filter(restaurant => {
+                return restaurant.name.toLowerCase().includes(search.toLowerCase())
+            }).map(restaurant => {
+                return <HomeCards restaurant={restaurant} />
+            })}
+            
             
         </SearchPageContainer>
         </>

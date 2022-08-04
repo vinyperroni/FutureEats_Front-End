@@ -7,4 +7,6 @@ export const SearchPageContainer = styled.div`
     margin-top: 1em;
     display: flex;
     flex-direction: column;
+    gap: 1em;
+    text-align: center;
 `
