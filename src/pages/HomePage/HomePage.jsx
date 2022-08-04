@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { TextField } from "@mui/material"
 import InputAdornment from "@mui/material/InputAdornment"
 import { Search } from "@mui/icons-material"
@@ -8,20 +8,13 @@ import { HomeCards } from "../../components/HomeCards/HomeCards"
 import { useNavigate } from "react-router-dom"
 import { goToSearch } from "../../routes/Coordinator"
 import { HomePageContainer, CategoryFilter } from "./styled"
+import { GlobalStateContext } from "../../GlobalState/GlobalStateContext"
 
 
 
 export default function HomePage() {
-    const [restaurants, setRestaurants] = useState()
-    const navigate = useNavigate()
-
-    
-    
-    
-    
-    useEffect(()=>{
-        getRestaurants()
-    },[])
+    const {restaurants} = useContext(GlobalStateContext)
+    const navigate = useNavigate()          
 
     console.log(restaurants)
     const restaurantCategory = restaurants && restaurants.map((r)=>{

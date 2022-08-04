@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GlobalStateContext} from "./GlobalStateContext";
 import axios from "axios";
 import { ListRestaurantGET } from "../api/manifest";
 
-const GlobalState = () => {
+
+const GlobalState = (props) => {
     const [restaurants, setRestaurants] = useState()
 
     //esse token é só para teste ele sera apagado
@@ -18,13 +19,19 @@ const GlobalState = () => {
         }})
     .then((res)=>{
     setRestaurants(res.data.restaurants)
-    console.log("taindo")
     })
     .catch((err)=>{
         console.log(err.message)
     })
     }
-
+    useEffect(()=>{
+        getRestaurants()
+    },[])
+    return (
+        <GlobalStateContext.Provider value = {{restaurants}}>
+            {props.children}
+        </GlobalStateContext.Provider>
+    )
 
 }
 

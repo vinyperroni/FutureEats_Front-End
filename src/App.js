@@ -2,12 +2,15 @@ import Router from "./routes/Router";
 import GlobalStyle from "./theme/GlobalStyle";
 import { ThemeProvider } from "@mui/system";
 import muiTheme from "./theme/muiTheme";
+import GlobalState from "./GlobalState/GlobalState";
 
 function App() {
   return (
     <ThemeProvider theme={muiTheme}>
-      <GlobalStyle />
-      <Router />
+      <GlobalState>
+        <GlobalStyle />
+        <Router />
+      </GlobalState>
     </ThemeProvider>
   );
 }
