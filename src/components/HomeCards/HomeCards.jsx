@@ -17,6 +17,7 @@ const Card = styled.div `
                             'tim tim val val';
     & > p{
         margin: 0 1em;
+        text-align: left;
     }
     #name{
         color: ${primaryColor};
