@@ -97,6 +97,9 @@ const AdressForm = () => {
                 focused
             />
             <Button 
+            sx={{
+                textTransform:"none"
+            }}
             variant="contained"
             type="submit"
             >Salvar</Button>        

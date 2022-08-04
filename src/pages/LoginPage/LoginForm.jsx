@@ -93,6 +93,9 @@ const LoginForm = () => {
             </FormControl>
 
             <Button 
+            sx={{
+                textTransform:"none"
+            }}
             variant="contained"
             type="submit"
             >Entrar</Button>        

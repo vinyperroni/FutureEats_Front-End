@@ -8,7 +8,7 @@ export const LoginFormContainer = styled.form`
 `
 
 export const LoginPageContainer = styled.div`
-margin: 0 auto;
+    margin: 0 auto;
     width: 90vw;
     max-width: 400px;
     display: flex;
