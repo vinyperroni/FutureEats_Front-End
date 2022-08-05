@@ -6,9 +6,11 @@ import {Header} from "../../components/Header/Header"
 import { HomeCards } from "../../components/HomeCards/HomeCards"
 import { useContext } from "react"
 import { GlobalStateContext } from "../../GlobalState/GlobalStateContext"
+import { useProtectedPage } from "../../hooks/useProtectedPage"
 
 
 export default function SearchPage() {
+    useProtectedPage()
     const {restaurants} = useContext(GlobalStateContext)
     const [search, setSearch] = useState("")
 

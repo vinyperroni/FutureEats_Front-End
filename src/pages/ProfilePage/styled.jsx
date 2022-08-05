@@ -56,6 +56,7 @@ export const DivHistory = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5px;
+    margin-bottom: 55px;
     & > span {
         margin: 0px 16px;
     }

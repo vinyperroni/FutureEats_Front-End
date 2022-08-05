@@ -5,17 +5,20 @@ import { Search } from "@mui/icons-material"
 import { HomeCards } from "../../components/HomeCards/HomeCards"
 import { useNavigate } from "react-router-dom"
 import { goToSearch } from "../../routes/Coordinator"
-import { HomePageContainer, CategoryFilter } from "./styled"
+import { HomePageContainer, CategoryFilter, CardsRes } from "./styled"
 import { GlobalStateContext } from "../../GlobalState/GlobalStateContext"
 import NavFooter from "../../components/NavFooter/NavFooter"
 import { Header } from "../../components/Header/Header"
+import { useProtectedPage } from "../../hooks/useProtectedPage"
 
 export default function HomePage() {
+    useProtectedPage()
     const { restaurants } = useContext(GlobalStateContext)
-    const [category, setCategory] = useState("")
+    const [category, setCategory] = useState("Todos")
     const navigate = useNavigate()
 
-    let listCategory = []
+
+    let listCategory = ["Todos"]
 
     const listCategoryfiltered = restaurants && restaurants.map((r)=>{
         return r.category
@@ -26,8 +29,7 @@ export default function HomePage() {
             return listCategory.push(r)
         }
     })
-    console.log(listCategory);
-    
+        
     const restaurantCategory = listCategory && listCategory.map((r) => {
         if(r === category){
             return (<p id="selected" onClick={() => onChangeCategory(r)}><b>{r}</b></p>)
@@ -55,18 +57,20 @@ export default function HomePage() {
                 }}
             />
             <CategoryFilter>{restaurantCategory}</CategoryFilter>
-            {restaurants && restaurants.filter((r) => {                
-                if (r.category == category) {
+            <CardsRes>{restaurants && restaurants.filter((r) => {                
+                if (r.category === category) {
                     return true
-                } else if (category == "") {
+                } else if (category === "Todos") {
                     return true
                 }
             }).map(restaurant => (
-                <HomeCards key={restaurant.id} restaurant={restaurant} />
+                <HomeCards key={restaurant.id} restaurant={restaurant}  />
             ))}
+            </CardsRes>
                 
         </HomePageContainer>
         <NavFooter/>
+        
         
         </>
     )

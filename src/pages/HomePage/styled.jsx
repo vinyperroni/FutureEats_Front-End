@@ -36,3 +36,10 @@ export const CategoryFilter = styled.div`
     }
 
 `
+
+export const CardsRes = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    margin-bottom: 55px;
+`

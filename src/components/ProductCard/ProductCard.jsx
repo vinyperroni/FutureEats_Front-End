@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 import { ModalQuantity } from "./ModalQuantity"
+import { primaryColor } from "../../theme/colors"
 
 const DivCard = styled.div`
     display: flex;
@@ -51,7 +52,7 @@ const DivCard = styled.div`
             padding: 0.75em 1em;
             border: solid 0.175em;
             background-color: white;
-            color: green;
+            color: ${primaryColor};
             font-size: 0.75em;
             font-weight: 600;
         }

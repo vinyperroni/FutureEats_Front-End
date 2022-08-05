@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { primaryColor } from "../../theme/colors";
 
 const Grayout = styled.span`
     position: fixed;
@@ -61,7 +62,7 @@ const Grayout = styled.span`
                 padding: 0.25em 1em 1em 1em;
                 border: none;
                 background-color: transparent;
-                color: green;
+                color: ${primaryColor};
                 font-size: 1.25em;
                 font-weight: bold;
                 cursor: pointer;
