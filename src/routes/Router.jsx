@@ -17,8 +17,7 @@ export default function Router() {
             <Route path='/login' element={ <LoginPage /> } />
             <Route path='/signup' element={ <SignUpPage /> } />
             <Route path='/address' element={ <SignUpAddressPage /> } />
-            {/* <Route path='/restaurant/:id' element={ <RestaurantPage /> } /> */}
-            <Route path='/restaurant/' element={ <RestaurantPage /> } />
+            <Route path='/restaurant/:id' element={ <RestaurantPage /> } />
             <Route path='/cart' element={ <CartPage /> } />
             <Route path='/profile' element={ <ProfilePage /> } />
             <Route path='/search' element={ <SearchPage /> } />

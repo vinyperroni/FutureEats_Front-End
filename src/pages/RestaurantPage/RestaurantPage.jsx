@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { RestaurantDetailsGET, Headers } from "../../api/manifest";
 import axios from "axios";
 import styled from "styled-components";
@@ -34,6 +35,7 @@ const SectionTitle = styled.section`
 `;
 
 export default function RestaurantPage() {
+    const { id } = useParams();
     const [restaurant, setRestaurant] = useState({});
     const [products, setProducts] = useState([]);
 
@@ -47,7 +49,7 @@ export default function RestaurantPage() {
         }
     }
     useEffect(() => {
-        axios.get(RestaurantDetailsGET, {headers: Headers})
+        axios.get(`${RestaurantDetailsGET}/${id}`, {headers: Headers})
         .then(response => {
             setRestaurant(response.data.restaurant);
             setProducts(response.data.restaurant.products);
