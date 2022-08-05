@@ -1,7 +1,7 @@
 import { Header } from "../../components/Header/Header";
 import { useProtectedPage } from "../../hooks/useProtectedPage";
 import axios from "axios";
-import { ProfileGET } from "../../api/manifest";
+import { Headers, ProfileGET } from "../../api/manifest";
 import { useState, useEffect } from "react";
 import {
   AddressCart,
@@ -11,6 +11,7 @@ import {
 } from "./styled";
 import { CartPageForm } from "./CartPageForm";
 import NavFooter from "../../components/NavFooter/NavFooter";
+
 
 export default function CartPage() {
   useProtectedPage();
@@ -23,10 +24,7 @@ export default function CartPage() {
   const getProfile = () => {
     axios
       .get(ProfileGET, {
-        headers: {
-          "Content-Type": "application/json",
-          auth: token,
-        },
+        headers: Headers
       })
       .then((res) => {
         console.log(res.data);

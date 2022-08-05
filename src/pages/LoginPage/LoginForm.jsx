@@ -14,7 +14,11 @@ import axios from "axios";
 
 import { LoginPOST } from "../../api/manifest"
 
+import { goToHome } from "../../routes/Coordinator";
+import { useNavigate } from "react-router-dom";
+
 const LoginForm = () => {
+    const navigate = useNavigate()
     const [form, onChange, clearInput] = useForm({ email: "", password: ""})
 
     const [values, setValues] = React.useState({
@@ -35,6 +39,7 @@ const LoginForm = () => {
             console.log(res);
             localStorage.setItem("tknFutureEats", res.data.token)
             clearInput()
+            goToHome(navigate)
         }).catch((err) => {
             console.log(err)
         })

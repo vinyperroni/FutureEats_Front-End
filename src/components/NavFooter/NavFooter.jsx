@@ -14,15 +14,15 @@ import { goToProfile } from "../../routes/Coordinator";
 
 
 const NavContainer = styled.nav`
-    width: 100vw;
+    width: 100%;
     height: 49px;
     margin: 0 auto;
-    max-width: 400px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    box-sizing: border-box;
+    gap: 6em;
     position: fixed;
+    box-sizing: border-box;
     bottom: 0;
     box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.2), 0 -2px 1px -1px rgba(0, 0, 0, 0.12), 0 -1px 1px 0 rgba(0, 0, 0, 0.14);
     background-color: #fff;
@@ -38,6 +38,7 @@ export default function NavFooter() {
     const navigate = useNavigate()
 
     return(
+        
         <NavContainer>
             <div>
                 {location.pathname === "/"

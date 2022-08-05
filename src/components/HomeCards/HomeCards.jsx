@@ -54,7 +54,7 @@ export const HomeCards = ({restaurant}) => {
     
     
     return(
-        <div onClick={()=> goToRestaurant(navigate, id) }>
+        <div onClick={()=> goToRestaurant(navigate, id)}>
             <Card>
                 <Image>
                     <img src={logoUrl} alt={name} />

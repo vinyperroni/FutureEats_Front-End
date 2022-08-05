@@ -5,6 +5,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { Header } from "../../components/Header/Header";
 import { ProductCard } from "../../components/ProductCard/ProductCard";
+import { useProtectedPage } from "../../hooks/useProtectedPage";
 
 const SectionTitle = styled.section`
     display: flex;
@@ -35,6 +36,7 @@ const SectionTitle = styled.section`
 `;
 
 export default function RestaurantPage() {
+    useProtectedPage()
     const { id } = useParams();
     const [restaurant, setRestaurant] = useState({});
     const [products, setProducts] = useState([]);

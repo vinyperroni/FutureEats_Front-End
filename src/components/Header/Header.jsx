@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { goBack } from "../../routes/Coordinator";
 
@@ -25,6 +25,7 @@ const Section = styled.section`
 
 export const Header = () => {
     const navigate = useNavigate()
+    const {id} = useParams()
     const location = useLocation();
 
     return (
@@ -37,7 +38,7 @@ export const Header = () => {
             {location.pathname === "/profile" && <h1>Meu perfil</h1>}
             {location.pathname === "/edit_user" && <h1>Editar</h1>}
             {location.pathname === "/address" && <h1>Endereço</h1>}
-            {location.pathname === "/restaurant" && <h1>Restaurante</h1>}
+            {location.pathname === `/restaurant/${id}` && <h1>Restaurante</h1>}
             {location.pathname === "/" && <h1>FutureEats</h1>}
         </Section>
     );

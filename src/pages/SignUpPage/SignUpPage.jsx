@@ -3,10 +3,12 @@ import { SignUpContainer } from "./styled"
 import SignUpForm from "./SignUpForm"
 import logo from "../../assets/logo-future-eats-invert-small.png"
 import { Header } from "../../components/Header/Header";
+import { useProtectedPage } from "../../hooks/useProtectedPage";
 
 
 
 export default function SignUpPage() { 
+    useProtectedPage()
     
     return (
         <>

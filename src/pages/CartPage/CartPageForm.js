@@ -77,7 +77,7 @@ export const CartPageForm = () => {
           />
         </RadioGroup>
         <Button
-          sx={{ margin: "10px", marginTop: "32px" }}
+          sx={{ margin: "10px", marginTop: "32px", marginBottom: "55px" }}
           variant="contained"
           type="submit"
         >
