@@ -38,6 +38,7 @@ export const Header = () => {
             {location.pathname === "/edit_user" && <h1>Editar</h1>}
             {location.pathname === "/address" && <h1>Endereço</h1>}
             {location.pathname === "/restaurant" && <h1>Restaurante</h1>}
+            {location.pathname === "/" && <h1>FutureEats</h1>}
         </Section>
     );
 }

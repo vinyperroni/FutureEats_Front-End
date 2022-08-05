@@ -16,6 +16,7 @@ import { goToProfile } from "../../routes/Coordinator";
 const NavContainer = styled.nav`
     width: 100vw;
     height: 49px;
+    margin: 0 auto;
     max-width: 400px;
     display: flex;
     justify-content: space-around;
