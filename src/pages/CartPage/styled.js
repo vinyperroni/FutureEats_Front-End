@@ -1,50 +1,56 @@
 import styled from "styled-components";
 import { secondaryColor, primaryColor } from "../../theme/colors";
-import { Button } from "@mui/material";
 
-export const ContainerPage = styled.div``;
+
+export const ContainerPage = styled.main`
+  margin: 0 16px;
+  max-width: 450px;
+  & > p {
+    text-align: center;
+  }
+`;
 
 export const AddressCart = styled.div`
   background-color: #eeeeee;
-  height: 12vh;
-  margin-top: -12px;
-
+  height: 11vh;
+  margin: 0 -16px 0 -16px;
+  max-width: 450px;
   p {
-    margin-left: 12px;
-    padding-bottom: -6px;
+    margin: 0 0 0 16px;
     height: fit-content;
     &:first-child {
       color: ${secondaryColor};
-      padding-top: 2px;
+      padding-top: 18px;
     }
     &:last-child {
       color: black;
+      margin-top: 8px;
+      padding-bottom: 4px;
     }
   }
 `;
 
 export const PriceContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-end;
   & > p {
-    font-size: 18px;
-    margin-left: 12px;
-    margin-top: 70px;
-    width: 50vw;
+    text-align: right;
+    font-size: 16px;
+    margin-bottom: -2px;
+    width: 100%;
   }
 `;
 
 export const ValueContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-end;
-  width: 50vw;
-    & > p {
-    margin-right: 12px;
+  width: 100%;
+  & > p {
     margin-bottom: 0;
     &:first-child {
-      font-size: 16px;
+      font-size: 18px;
     }
     &:last-child {
       color: ${primaryColor};
@@ -52,9 +58,13 @@ export const ValueContainer = styled.div`
   }
 `;
 
-export const ContainerForm = styled.div`
- margin: 12px 12px;
- 
+export const ContainerForm = styled.form`
+  margin: 12px 0;
 `;
 
-
+export const LineForm = styled.hr`
+  width: 100%;
+  margin-top: -6px;
+  background-color: black;
+  border-top: 1px solid black;
+`;

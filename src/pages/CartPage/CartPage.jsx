@@ -7,13 +7,14 @@ import {
   AddressCart,
   PriceContainer,
   ValueContainer,
-  
+  ContainerPage,
 } from "./styled";
 import { CartPageForm } from "./CartPageForm";
+import NavFooter from "../../components/NavFooter/NavFooter";
 
 export default function CartPage() {
   useProtectedPage();
-  
+
   const [profile, setProfile] = useState();
 
   const token =
@@ -41,22 +42,24 @@ export default function CartPage() {
   }, []);
 
   return (
-    <div>
+    <>
       <Header />
-      <AddressCart>
-        <p>Endereço de Entrega</p>
-        {profile && <p>{profile.user.address}</p>}
-      </AddressCart>
-      <p>Carrinho vazio</p>
-      <PriceContainer>
-        <p>Subtotal</p>
-        <ValueContainer>
-          <p>Frete</p>
-          <p>R$00,00</p>
-        </ValueContainer>
-      </PriceContainer>
-      <CartPageForm/>
-      
-    </div>
+      <ContainerPage>
+        <AddressCart>
+          <p>Endereço de Entrega</p>
+          {profile && <p>{profile.user.address}</p>}
+        </AddressCart>
+        <p>Carrinho vazio</p>
+        <PriceContainer>
+            <p>Frete</p>
+          <ValueContainer>
+          <p>Subtotal</p>
+            <p>R$00,00</p>
+          </ValueContainer>
+        </PriceContainer>
+        <CartPageForm />
+      </ContainerPage>
+      <NavFooter />
+    </>
   );
 }
