@@ -6,24 +6,20 @@ import { Button } from "@mui/material";
 import { ContainerForm, LineForm } from "./styled";
 import { useForm } from "../../hooks/useForm";
 import axios from "axios";
-import { PlaceOrderPOST } from "../../api/manifest";
+import { Headers, PlaceOrderPOST } from "../../api/manifest";
 import { useNavigate } from "react-router-dom";
 import { goToHome } from "../../routes/Coordinator";
 
 export const CartPageForm = () => {
   const [form, onChange, clearInput] = useForm({ paymentMethod: "" });
   const navigate = useNavigate();
+  const orderList = JSON.parse(window.localStorage.getItem('cart'));
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRlbU1QdmlyeTB2UmhZWXUxVU1JIiwibmFtZSI6IkxpbGFUZXN0IiwiZW1haWwiOiJsaWxhdGVzdEBsaWxhdGVzdC5jb20iLCJjcGYiOiI2NjYuOTk5LjY2Ni05NiIsImhhc0FkZHJlc3MiOnRydWUsImFkZHJlc3MiOiJSLiBBZm9uc28gQnJheiwgMTc3LCA3MSAtIFZpbGEgTi4gQ29uY2Vpw6fDo28iLCJpYXQiOjE2NTk1NDgwNDB9.TMg4EOwh9HvtYqKmFKAK3ytSTt_zqRE2q5p6FkjiJb0";
-
+  
   const placeOrder = () => {
     axios
-      .post(PlaceOrderPOST, {
-        headers: {
-          "Content-Type": "application/json",
-          auth: token,
-        },
+      .post(PlaceOrderPOST, orderList, {
+        headers: Headers
       })
       .then((res) => {
         alert("pedido realizado");
