@@ -19,9 +19,9 @@ export const UpdateProfilePUT = `${BaseURL}/profile`;
 
 export const ListRestaurantGET = `${BaseURL}/restaurants`;
 
-export const RestaurantDetailsGET = `${BaseURL}/restaurants/${window.localStorage.getItem("restaurantId")}`;
+export const RestaurantDetailsGET = `${BaseURL}/restaurants`;
 
-export const PlaceOrderPOST = `${BaseURL}/restaurants/${window.localStorage.getItem("restaurantId")}/order`;
+export const PlaceOrderPOST = `${BaseURL}/restaurants/`;
 
 export const ActiveOrderGET = `${BaseURL}/active-order`;
 
