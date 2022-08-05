@@ -3,12 +3,14 @@ import { RestaurantDetailsGET, Headers } from "../../api/manifest";
 import axios from "axios";
 import styled from "styled-components";
 import { Header } from "../../components/Header/Header";
+import { ProductCard } from "../../components/ProductCard/ProductCard";
 
 const SectionTitle = styled.section`
     display: flex;
     flex-direction: column;
     width: 95%;
     height: fit-content;
+    max-width: 420px;
     img {
         width: 100%;
         height: 5em;
@@ -17,49 +19,38 @@ const SectionTitle = styled.section`
     }
     strong {
         width: 100%;
+        margin-left: 0.15em;
         font-size: 1.25em;
         font-weight: 600;
         color: black;
     }
     p {
         width: 100%;
-        margin: 0.25em 0;
-        font-size: 1.2em;
+        margin: 0.25em 0 0.25em 0.15em;
+        font-size: 1em;
         font-weight: 400;
         color: black;
     }
-`
-const SectionCategory = styled.section`
-    display: flex;
-    width: 95%;
-    height: fit-content;
-    border: solid;
-    img {
-        width: 100%;
-        height: 5em;
-        object-fit: cover;
-        border-radius: 0.5em 0.5em 0 0;
-    }
-    div {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 100%;
-        height: 100%;
-        padding: 0.5em;
-        border: solid;
-        border-radius: 0.5em 0.5em 0 0;
-        background-color: white;
-    }
-`
+`;
 
 export default function RestaurantPage() {
-    const [restaurant, setRestaurant] = useState();
+    const [restaurant, setRestaurant] = useState({});
+    const [products, setProducts] = useState([]);
 
+    const priceMask = (price) => {        
+        if (price === 0) {
+            return "Grátis";
+        } else if (price < 10) {
+            return `Frete: R$ ${price?.toFixed(2)}`;
+        } else {
+            return `Frete: R$ ${price?.toFixed(2).replace(".", ",")}`;
+        }
+    }
     useEffect(() => {
         axios.get(RestaurantDetailsGET, {headers: Headers})
         .then(response => {
             setRestaurant(response.data.restaurant);
+            setProducts(response.data.restaurant.products);
         })
         .catch(error => {
             console.log("Erro: "+error);
@@ -75,16 +66,17 @@ export default function RestaurantPage() {
                 <p>{restaurant.category}</p>
                 <div style={{display:"flex",alignItems:"flex-start",justifyContent:"center",width:"100%"}}>
                     <p>{restaurant.deliveryTime} - {restaurant.deliveryTime+10} min</p>
-                    <p>Frete: R${restaurant.shipping},00</p>
+                    <p>{priceMask(restaurant.shipping)}</p>
                 </div>
                 <p>{restaurant.address}</p>
-            </SectionTitle> 
-            <SectionCategory>
-                <img src="" alt="" />
-                <div>
-                    <p>{restaurant.description}</p>
-                </div>
-            </SectionCategory>           
+            </SectionTitle>
+            {products.map(item => (
+                <ProductCard key={item.id} product={item} />
+            ))}
+            <br />
+            <br />
+            <br />
+            <br />           
         </div>
     )
 }
