@@ -9,13 +9,15 @@ import { HomePageContainer, CategoryFilter } from "./styled"
 import { GlobalStateContext } from "../../GlobalState/GlobalStateContext"
 import NavFooter from "../../components/NavFooter/NavFooter"
 import { Header } from "../../components/Header/Header"
+import { goToRestaurant } from "../../routes/Coordinator"
 
 export default function HomePage() {
     const { restaurants } = useContext(GlobalStateContext)
-    const [category, setCategory] = useState("")
+    const [category, setCategory] = useState("Todos")
     const navigate = useNavigate()
 
-    let listCategory = []
+
+    let listCategory = ["Todos"]
 
     const listCategoryfiltered = restaurants && restaurants.map((r)=>{
         return r.category
@@ -26,8 +28,7 @@ export default function HomePage() {
             return listCategory.push(r)
         }
     })
-    console.log(listCategory);
-    
+        
     const restaurantCategory = listCategory && listCategory.map((r) => {
         if(r === category){
             return (<p id="selected" onClick={() => onChangeCategory(r)}><b>{r}</b></p>)
@@ -58,11 +59,11 @@ export default function HomePage() {
             {restaurants && restaurants.filter((r) => {                
                 if (r.category == category) {
                     return true
-                } else if (category == "") {
+                } else if (category == "Todos") {
                     return true
                 }
             }).map(restaurant => (
-                <HomeCards key={restaurant.id} restaurant={restaurant} />
+                <HomeCards key={restaurant.id} restaurant={restaurant}  />
             ))}
                 
         </HomePageContainer>

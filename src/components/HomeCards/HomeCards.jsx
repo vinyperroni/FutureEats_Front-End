@@ -1,5 +1,7 @@
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { primaryColor, secondaryColor } from "../../theme/colors"
+import { goToRestaurant } from "../../routes/Coordinator"
 
 const Card = styled.div `
     width: 90vw;
@@ -47,11 +49,12 @@ const Image = styled.div`
 `
 
 export const HomeCards = ({restaurant}) => {
-    const {logoUrl, name, deliveryTime, shipping} = restaurant
+    const {logoUrl, name, deliveryTime, shipping, id} = restaurant
+    const navigate = useNavigate()
     
     
     return(
-        <>
+        <div onClick={()=> goToRestaurant(navigate, id) }>
             <Card>
                 <Image>
                     <img src={logoUrl} alt={name} />
@@ -63,6 +66,6 @@ export const HomeCards = ({restaurant}) => {
             <p id="value">Frete R${shipping},00</p>
             </Card>
 
-        </>
+        </div>
     )
 }
