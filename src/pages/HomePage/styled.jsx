@@ -30,9 +30,9 @@ export const CategoryFilter = styled.div`
         padding: 5px 10px;
         border: none;
         cursor: pointer;
-        :active {
-            color: ${primaryColor} ;
-        }
+    }
+    #selected{
+        color: ${primaryColor};
     }
 
 `

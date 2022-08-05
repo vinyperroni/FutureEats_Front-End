@@ -29,7 +29,11 @@ export default function HomePage() {
     console.log(listCategory);
     
     const restaurantCategory = listCategory && listCategory.map((r) => {
-        return (<p onClick={() => onChangeCategory(r)}><b>{r}</b></p>)
+        if(r === category){
+            return (<p id="selected" onClick={() => onChangeCategory(r)}><b>{r}</b></p>)
+        }else{
+            return (<p onClick={() => onChangeCategory(r)}><b>{r}</b></p>)
+        }        
     })
 
     const onChangeCategory = (e) => {
