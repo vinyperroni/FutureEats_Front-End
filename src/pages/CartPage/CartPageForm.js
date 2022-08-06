@@ -15,14 +15,28 @@ export const CartPageForm = () => {
   const navigate = useNavigate();
   const orderList = JSON.parse(window.localStorage.getItem('cart'));
 
+  const productObject = orderList && orderList.map((p)=>{
+    return {quantity: p.quantity, id: p.id}
+  })
+
+  const data = {
+    products: productObject,
+    paymentMethod: form.paymentMethod,
+  }
+
+  console.log(productObject);
+  console.log(data);
+
+
   
   const placeOrder = () => {
     axios
-      .post(PlaceOrderPOST, orderList, {
+      .post(PlaceOrderPOST, data, {
         headers: Headers
       })
       .then((res) => {
-        alert("pedido realizado");
+        alert("pedido realizado")
+        goToHome(navigate);
       })
       .catch((err) => {
         console.log(err.data);
@@ -32,7 +46,6 @@ export const CartPageForm = () => {
   const onSubmitOrder = (e) => {
     e.preventDefault();
     placeOrder();
-    goToHome(navigate);
   };
 
   console.log(form);
