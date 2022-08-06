@@ -21,7 +21,7 @@ export default function CartPage() {
   const orderList = JSON.parse(window.localStorage.getItem('cart'));
 
   const renderOrderList =()=>{
-   if(orderList.length > 0){
+   if(orderList && orderList.length > 0){
     return <>
     {orderList && orderList.map((p)=>{
       return <ProductCard key={p.id} product={p} />

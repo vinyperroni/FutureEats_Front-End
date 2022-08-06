@@ -8,7 +8,7 @@ import { useProtectedPage } from "../../hooks/useProtectedPage";
 
 
 export default function SignUpPage() { 
-    useProtectedPage()
+   
     
     return (
         <>
