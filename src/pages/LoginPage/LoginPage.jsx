@@ -6,21 +6,13 @@ import { LoginPageContainer } from "./styled"
 import { Button } from "@mui/material"
 import { goToSignUp } from "../../routes/Coordinator"
 import { useNavigate } from "react-router-dom"
-
-
-const Section = styled.section`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    border: solid red;
-`
+import { useUnprotectedPage } from "../../hooks/useUnprotectedPage";
 
 export default function LoginPage() {
     const navigate = useNavigate()
 
+    useUnprotectedPage()
+    
     useEffect(() => {
         
     }, []);

@@ -14,7 +14,7 @@ import axios from "axios";
 
 import { LoginPOST } from "../../api/manifest"
 
-import { goToHome } from "../../routes/Coordinator";
+import { goToAddress, goToHome } from "../../routes/Coordinator";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
@@ -39,7 +39,12 @@ const LoginForm = () => {
             console.log(res);
             localStorage.setItem("tknFutureEats", res.data.token)
             clearInput()
-            goToHome(navigate)
+            if(res.data.user.hasAddress){
+                goToHome(navigate)
+            }else{
+                goToAddress(navigate)
+            }
+            
         }).catch((err) => {
             console.log(err)
         })

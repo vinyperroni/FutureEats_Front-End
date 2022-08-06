@@ -13,9 +13,13 @@ import { useProtectedPage } from "../../hooks/useProtectedPage"
 
 export default function HomePage() {
     useProtectedPage()
-    const { restaurants } = useContext(GlobalStateContext)
+    const { restaurants, getRestaurants } = useContext(GlobalStateContext)
     const [category, setCategory] = useState("Todos")
     const navigate = useNavigate()
+
+    useEffect(() => {
+        getRestaurants()
+    })
 
 
     let listCategory = ["Todos"]

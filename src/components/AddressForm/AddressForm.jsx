@@ -20,7 +20,10 @@ const AdressForm = () => {
     
     const addAddress = () => {
         console.log(Headers, form);
-        axios.put(AddAddressPUT, form, {headers: Headers})
+        axios.put(AddAddressPUT, form, {headers: {
+            "Content-Type": "application/json",
+            auth: localStorage.getItem("tknFutureEats")
+        }})
         .then((res) => {
             localStorage.setItem("tknFutureEats", res.data.token)
             goToHome(navigate)
