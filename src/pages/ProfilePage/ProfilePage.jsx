@@ -23,7 +23,6 @@ export default function ProfilePage() {
                 headers: Headers
             })
             .then((res) => {
-                console.log(res.data.orders)
                 setHistory(res.data.orders);
             })
             .catch((err) => {
