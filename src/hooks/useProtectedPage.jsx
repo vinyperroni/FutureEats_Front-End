@@ -6,7 +6,7 @@ export const useProtectedPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("tknFutureEats");
 
     if (!token) {
       alert("Favor realizar o login para prosseguir");
