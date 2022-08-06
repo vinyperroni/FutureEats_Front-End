@@ -9,7 +9,6 @@ export const useProtectedPage = () => {
     const token = localStorage.getItem("tknFutureEats");
 
     if (!token) {
-      alert("Favor realizar o login para prosseguir");
       goToLogin(navigate);
     }
   }, [navigate]);
