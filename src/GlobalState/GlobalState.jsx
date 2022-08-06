@@ -10,7 +10,10 @@ const GlobalState = (props) => {
         
     const getRestaurants = () => {
         axios
-        .get( ListRestaurantGET, {headers: Headers})
+        .get( ListRestaurantGET, {headers: {
+            "Content-Type": "application/json",
+            auth: localStorage.getItem("tknFutureEats")
+        }})
     .then((res)=>{
     setRestaurants(res.data.restaurants)
     })
@@ -18,11 +21,9 @@ const GlobalState = (props) => {
         console.log(err.message)
     })
     }
-    useEffect(()=>{
-        getRestaurants()
-    },[])
+
     return (
-        <GlobalStateContext.Provider value = {{restaurants}}>
+        <GlobalStateContext.Provider value = {{restaurants, getRestaurants}}>
             {props.children}
         </GlobalStateContext.Provider>
     )
