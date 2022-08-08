@@ -36,9 +36,6 @@ export default function CartPage() {
       }
     });
 
-  console.log(restInfoById);
-  console.log(restaurants);
-
   const renderOrderList = () => {
     if (orderList && orderList.length > 0) {
       return (
@@ -91,10 +88,6 @@ export default function CartPage() {
         console.log("deu erro");
       });
   };
-
-  // useEffect(() => {
-  //   renderOrderList();
-  // }, [orderList]);
 
   return (
     <>

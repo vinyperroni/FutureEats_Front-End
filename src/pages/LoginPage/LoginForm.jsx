@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import { useForm } from "../../hooks/useForm"
 import { TextField, Button } from "@mui/material"
 import { LoginFormContainer } from "./styled"
@@ -16,9 +16,11 @@ import { LoginPOST } from "../../api/manifest"
 
 import { goToAddress, goToHome } from "../../routes/Coordinator";
 import { useNavigate } from "react-router-dom";
+import { GlobalStateContext } from "../../GlobalState/GlobalStateContext";
 
 const LoginForm = () => {
     const navigate = useNavigate()
+    const { getUserData } = useContext(GlobalStateContext)
     const [form, onChange, clearInput] = useForm({ email: "", password: ""})
 
     const [values, setValues] = React.useState({
@@ -33,7 +35,6 @@ const LoginForm = () => {
     }
     
     const login = () => {
-        console.log(form);
         axios.post(LoginPOST, form)
         .then((res) => {
             console.log(res);
@@ -41,6 +42,7 @@ const LoginForm = () => {
             clearInput()
             if(res.data.user.hasAddress){
                 goToHome(navigate)
+                getUserData()
             }else{
                 goToAddress(navigate)
             }

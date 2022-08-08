@@ -30,7 +30,7 @@ export const Header = () => {
 
     return (
         <Section>
-            {location.pathname !== "/login" && location.pathname !== "/home" && location.pathname !== "/cart" && location.pathname !== "/profile" &&
+            {location.pathname !== "/login" && location.pathname !== "/" && location.pathname !== "/cart" && location.pathname !== "/profile" &&
                 <ChevronLeftIcon onClick={() => goBack(navigate)} style={{ cursor: "pointer", fontSize: "2em", position: "absolute", left: "0.25em" }} />
             }
             {location.pathname === "/search" && <h1>Busca</h1>}
