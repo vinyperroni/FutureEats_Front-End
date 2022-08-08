@@ -4,9 +4,10 @@ import { Header } from "../../components/Header/Header";
 import { useForm } from "../../hooks/useForm";
 import { ProfileGET, UpdateProfilePUT } from "../../api/manifest";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { goBack } from "../../routes/Coordinator";
 import { useNavigate } from "react-router-dom";
+import { GlobalStateContext } from "../../GlobalState/GlobalStateContext";
 
 export const EditUserContainer = styled.div`
     margin: 0 auto;
@@ -33,26 +34,28 @@ export const FormEditUser = styled.form`
 
 export default function EditUserPage() {
 
-    const [user, setUser] = useState({})
+    // const [user, setUser] = useState({})
+
+    const { user, getUserData } = useContext(GlobalStateContext)
 
     const navigate = useNavigate();
     const [form, onChange, clearInput] = useForm({name: user.name, email: user.email, cpf: user.cpf});
 
-    const getUserData = () => {
-        axios
-            .get(ProfileGET, {
-                headers: {
-                    "Content-Type": "application/json",
-                    auth: window.localStorage.getItem("tknFutureEats")
-                }
-            })
-            .then((res) => {
-                setUser(res.data.user)
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }
+    // const getUserData = () => {
+    //     axios
+    //         .get(ProfileGET, {
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 auth: window.localStorage.getItem("tknFutureEats")
+    //             }
+    //         })
+    //         .then((res) => {
+    //             setUser(res.data.user)
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         })
+    // }
 
     useEffect(() => {
         getUserData();
@@ -77,7 +80,7 @@ export default function EditUserPage() {
             })
     }
 
-    console.log(user)
+    
     return <div>
         <EditUserContainer>
             <Header />

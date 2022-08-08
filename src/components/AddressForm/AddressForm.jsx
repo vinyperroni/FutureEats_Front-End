@@ -1,16 +1,25 @@
 import { useForm } from "../../hooks/useForm"
-import React from "react"
+import React, { useContext } from "react"
 import { Form } from "./styled"
 import { Button, TextField } from "@mui/material"
 import { AddAddressPUT } from "../../api/manifest"
 import { goToHome } from "../../routes/Coordinator"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
+import { GlobalStateContext } from "../../GlobalState/GlobalStateContext"
 
 const AdressForm = () => {
     const navigate = useNavigate()
-    const [form, onChange, clearInput] = useForm({ street: "", number: "", neighbourhood: "", city: "", state: "", complement: ""})
+    const { address } = useContext(GlobalStateContext)
 
+    const [form, onChange, clearInput] = useForm({  street: address ? address.street : "", 
+                                                    number: address ? address.number : "", 
+                                                    neighbourhood: address ? address.neighbourhood : "", 
+                                                    city: address ? address.city : "", 
+                                                    state: address ? address.state : "", 
+                                                    complement: address ? address.complement : ""})
+
+    const { getUserData } = useContext(GlobalStateContext)
 
     const onSubmitForm = (event) => {
         event.preventDefault();
@@ -26,6 +35,7 @@ const AdressForm = () => {
         .then((res) => {
             localStorage.setItem("tknFutureEats", res.data.token)
             goToHome(navigate)
+            getUserData()
             clearInput()
         })
         .catch((err) => {

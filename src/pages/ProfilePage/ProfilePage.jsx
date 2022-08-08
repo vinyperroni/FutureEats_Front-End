@@ -7,15 +7,17 @@ import { goToAddress, goToEditUser } from "../../routes/Coordinator";
 import NavFooter from "../../components/NavFooter/NavFooter";
 import axios from "axios";
 import { OrdersHistoryGET, ProfileGET } from "../../api/manifest";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useProtectedPage } from "../../hooks/useProtectedPage";
+import { GlobalStateContext } from "../../GlobalState/GlobalStateContext";
 
 export default function ProfilePage() {
     useProtectedPage()
     const navigate = useNavigate();
 
-    const [user, setUser] = useState({});
+    // const [user, setUser] = useState({});
     const [history, setHistory] = useState([]);
+    const { user, getUserData} = useContext(GlobalStateContext)
 
     const getHistory = () => {
         axios
@@ -33,21 +35,21 @@ export default function ProfilePage() {
             })
     }
 
-    const getUserData = () => {
-        axios
-            .get(ProfileGET, {
-                headers: {
-                    "Content-Type": "application/json",
-                    auth: window.localStorage.getItem("tknFutureEats")
-                }
-            })
-            .then((res) => {
-                setUser(res.data.user);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }
+    // const getUserData = () => {
+    //     axios
+    //         .get(ProfileGET, {
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 auth: window.localStorage.getItem("tknFutureEats")
+    //             }
+    //         })
+    //         .then((res) => {
+    //             setUser(res.data.user);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         })
+    // }
 
     useEffect(() => {
         getHistory();
