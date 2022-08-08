@@ -1,46 +1,90 @@
 import { Header } from "../../components/Header/Header";
 import { useProtectedPage } from "../../hooks/useProtectedPage";
 import axios from "axios";
-import { Headers, ProfileGET } from "../../api/manifest";
-import { useState, useEffect } from "react";
+import { ProfileGET } from "../../api/manifest";
+import { useState, useEffect, useContext } from "react";
 import {
   AddressCart,
   PriceContainer,
   ValueContainer,
   ContainerPage,
+  RestaurantContainer,
 } from "./styled";
 import { CartPageForm } from "./CartPageForm";
 import NavFooter from "../../components/NavFooter/NavFooter";
 import { ProductCard } from "../../components/ProductCard/ProductCard";
-
+import { GlobalStateContext } from "../../GlobalState/GlobalStateContext";
 
 export default function CartPage() {
   useProtectedPage();
 
   const [profile, setProfile] = useState();
-  const orderList = JSON.parse(window.localStorage.getItem('cart'));
+  const [orderList, setOrderList] = useState(JSON.parse(window.localStorage.getItem("cart")));
+  const { restaurants, getRestaurants } = useContext(GlobalStateContext);
+  const restaurantId = window.localStorage.getItem("restaurantId");
 
-  const renderOrderList =()=>{
-   if(orderList && orderList.length > 0){
-    return <>
-    {orderList && orderList.map((p)=>{
-      return <ProductCard key={p.id} product={p} />
-    })}
-    </>
-  } else{
-    <p>Carrinho vazio</p>
+  useEffect(() => {
+    getRestaurants();
+    getProfile();
+  }, []);
+
+  const restInfoById =
+    restaurants &&
+    restaurants.filter((r) => {
+      if (r.id === restaurantId) {
+        return r;
+      }
+    });
+
+  console.log(restInfoById);
+  console.log(restaurants);
+
+  const renderOrderList = () => {
+    if (orderList && orderList.length > 0) {
+      return (
+        <>
+          {orderList &&
+            restInfoById &&
+            restInfoById.map((r) => {
+              return (
+                <RestaurantContainer key={r.id}>
+                  <span>
+                    <b>{r.name}</b>
+                  </span>
+                  <span>{r.address}</span>
+                  <span>
+                    {r.deliveryTime - 10} - {r.deliveryTime} min
+                  </span>
+                </RestaurantContainer>
+              );
+            })}
+          {orderList &&
+            orderList.map((p) => {
+              return <ProductCard key={p.id} product={p} setOrderList={setOrderList}/>;
+            })}
+        </>
+      );
+    } else {
+      <p>Carrinho vazio</p>;
+    }
+  };
+
+  let priceSum = 0;
+  if (orderList) {
+    for (let product of orderList) {
+      priceSum += product.price * product.quantity;
+    }
   }
-  }
-  
-  console.log(orderList)
-  
+
   const getProfile = () => {
     axios
       .get(ProfileGET, {
-        headers: Headers
+        headers: {
+          "Content-Type": "application/json",
+          auth: window.localStorage.getItem("tknFutureEats"),
+        },
       })
       .then((res) => {
-        console.log(res.data);
         setProfile(res.data);
       })
       .catch((err) => {
@@ -48,9 +92,9 @@ export default function CartPage() {
       });
   };
 
-  useEffect(() => {
-    getProfile();
-  }, []);
+  // useEffect(() => {
+  //   renderOrderList();
+  // }, [orderList]);
 
   return (
     <>
@@ -62,10 +106,18 @@ export default function CartPage() {
         </AddressCart>
         {renderOrderList()}
         <PriceContainer>
-            <p>Frete</p>
+          { orderList && orderList.length>0 && restInfoById ? (
+            <p>Frete R${restInfoById[0].shipping.toFixed(2)}</p>
+          ) : (
+            <p>Frete R$00,00</p>
+          )}
           <ValueContainer>
-          <p>Subtotal</p>
-            <p>R$00,00</p>
+            <p>Subtotal</p>
+            {orderList && orderList.length>0 && restInfoById ? (
+              <p>R${(priceSum + restInfoById[0].shipping).toFixed(2)}</p>
+            ) : (
+              <p>R$00,00</p>
+            )}
           </ValueContainer>
         </PriceContainer>
         <CartPageForm />

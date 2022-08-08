@@ -52,9 +52,13 @@ export const HomeCards = ({restaurant}) => {
     const {logoUrl, name, deliveryTime, shipping, id} = restaurant
     const navigate = useNavigate()
     
+    const getRestaurantId = (id) =>{
+        window.localStorage.setItem('restaurantId', id)
+        goToRestaurant(navigate, id)
+    }
     
     return(
-        <div onClick={()=> goToRestaurant(navigate, id)}>
+        <div onClick={()=> getRestaurantId(id) }>
             <Card>
                 <Image>
                     <img src={logoUrl} alt={name} />

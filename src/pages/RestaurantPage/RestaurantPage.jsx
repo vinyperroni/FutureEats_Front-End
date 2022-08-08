@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { RestaurantDetailsGET, Headers } from "../../api/manifest";
+import { RestaurantDetailsGET} from "../../api/manifest";
 import axios from "axios";
 import styled from "styled-components";
 import { Header } from "../../components/Header/Header";
@@ -51,13 +51,14 @@ export default function RestaurantPage() {
         }
     }
     useEffect(() => {
-        axios.get(`${RestaurantDetailsGET}/${id}`, {headers: Headers})
+        axios.get(`${RestaurantDetailsGET}/${id}`, {headers: {"Content-Type": "application/json",
+        auth: window.localStorage.getItem("tknFutureEats")}})
         .then(response => {
             setRestaurant(response.data.restaurant);
             setProducts(response.data.restaurant.products);
         })
         .catch(error => {
-            console.log("Erro: "+error);
+            console.log("Erro: "+error.response.data.message);
         });
     }, []);
 

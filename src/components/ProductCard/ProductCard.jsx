@@ -68,7 +68,7 @@ const ImgBox = styled.span`
     img {width: 100%;}
 `
 
-export const ProductCard = ({ product }) => {
+export const ProductCard = ({ product, setOrderList }) => {
     const { photoUrl, name, price, description } = product;
     const [quantity, setQuantity] = useState(0);
     const [triggerModal, setTriggerModal] = useState(false);
@@ -114,7 +114,7 @@ export const ProductCard = ({ product }) => {
                     <button style={{borderRadius:"0.5em 0 0.75em 0",cursor:"pointer"}} onClick={() => setTriggerModal(true)}>adicionar</button>
                 }                
             </section>
-            {triggerModal && <ModalQuantity quantity={quantity} setQuantity={setQuantity} setTriggerModal={setTriggerModal} product={product} />}
+            {triggerModal && <ModalQuantity quantity={quantity} setQuantity={setQuantity} setTriggerModal={setTriggerModal} product={product} setOrderList={setOrderList} />}
         </DivCard>
     )
 }

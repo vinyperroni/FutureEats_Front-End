@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { goToAddress, goToEditUser } from "../../routes/Coordinator";
 import NavFooter from "../../components/NavFooter/NavFooter";
 import axios from "axios";
-import { Headers, OrdersHistoryGET, ProfileGET } from "../../api/manifest";
+import { OrdersHistoryGET, ProfileGET } from "../../api/manifest";
 import { useEffect, useState } from "react";
 import { useProtectedPage } from "../../hooks/useProtectedPage";
 
@@ -20,7 +20,10 @@ export default function ProfilePage() {
     const getHistory = () => {
         axios
             .get(OrdersHistoryGET, {
-                headers: Headers
+                headers: {
+                    "Content-Type": "application/json",
+                    auth: window.localStorage.getItem("tknFutureEats")
+                }
             })
             .then((res) => {
                 setHistory(res.data.orders);
@@ -33,7 +36,10 @@ export default function ProfilePage() {
     const getUserData = () => {
         axios
             .get(ProfileGET, {
-                headers: Headers
+                headers: {
+                    "Content-Type": "application/json",
+                    auth: window.localStorage.getItem("tknFutureEats")
+                }
             })
             .then((res) => {
                 setUser(res.data.user);
