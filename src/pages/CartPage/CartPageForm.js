@@ -9,12 +9,14 @@ import axios from "axios";
 import { PlaceOrderPOST } from "../../api/manifest";
 import { useNavigate } from "react-router-dom";
 import { goToHome } from "../../routes/Coordinator";
+import { useState } from "react";
 
-export const CartPageForm = () => {
+export const CartPageForm = (props) => {
   const [form, onChange, clearInput] = useForm({ paymentMethod: "" });
   const navigate = useNavigate();
   const orderList = JSON.parse(window.localStorage.getItem("cart"));
   const restaurantId = window.localStorage.getItem("restaurantId");
+  const [activeOrder, setActiveOrder] = useState(false);
 
   const productObject =
     orderList &&
@@ -79,6 +81,7 @@ export const CartPageForm = () => {
           sx={{ margin: "10px", marginTop: "32px", marginBottom: "55px" }}
           variant="contained"
           type="submit"
+          disabled={props.activeOrder}
         >
           Confirmar
         </Button>
