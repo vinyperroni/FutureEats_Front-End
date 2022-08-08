@@ -1,7 +1,7 @@
 import { Header } from "../../components/Header/Header";
 import { useProtectedPage } from "../../hooks/useProtectedPage";
 import axios from "axios";
-import { ProfileGET } from "../../api/manifest";
+import { ProfileGET, ActiveOrderGET } from "../../api/manifest";
 import { useState, useEffect, useContext } from "react";
 import {
   AddressCart,
@@ -14,6 +14,7 @@ import { CartPageForm } from "./CartPageForm";
 import NavFooter from "../../components/NavFooter/NavFooter";
 import { ProductCard } from "../../components/ProductCard/ProductCard";
 import { GlobalStateContext } from "../../GlobalState/GlobalStateContext";
+import ModalActiveOrder from "../../components/ModalActiveOrder/ModalActiveOrder";
 
 export default function CartPage() {
   useProtectedPage();
@@ -22,10 +23,12 @@ export default function CartPage() {
   const [orderList, setOrderList] = useState(JSON.parse(window.localStorage.getItem("cart")));
   const { restaurants, getRestaurants } = useContext(GlobalStateContext);
   const restaurantId = window.localStorage.getItem("restaurantId");
+  const [activeOrder, setActiveOrder] = useState(true);
 
   useEffect(() => {
     getRestaurants();
     getProfile();
+    getActiveOrder();
   }, []);
 
   const restInfoById =
@@ -89,6 +92,21 @@ export default function CartPage() {
       });
   };
 
+  const getActiveOrder = () => {
+    axios
+        .get(ActiveOrderGET, {
+            headers: {
+                "Content-Type": "application/json",
+                auth: window.localStorage.getItem("tknFutureEats")
+            }
+        })
+        .then(res => {
+            if (!res.data.order) {
+              setActiveOrder(false)
+            }
+        })
+  } 
+
   return (
     <>
       <Header />
@@ -113,8 +131,9 @@ export default function CartPage() {
             )}
           </ValueContainer>
         </PriceContainer>
-        <CartPageForm />
+        <CartPageForm activeOrder={activeOrder}/>
       </ContainerPage>
+      <ModalActiveOrder />
       <NavFooter />
     </>
   );
