@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { RestaurantDetailsGET} from "../../api/manifest";
+import { RestaurantDetailsGET } from "../../api/manifest";
 import axios from "axios";
 import styled from "styled-components";
 import { Header } from "../../components/Header/Header";
 import { ProductCard } from "../../components/ProductCard/ProductCard";
 import { useProtectedPage } from "../../hooks/useProtectedPage";
+import {CircularProgress} from "@mui/material";
 
 const SectionTitle = styled.section`
     display: flex;
@@ -35,13 +36,21 @@ const SectionTitle = styled.section`
     }
 `;
 
+const Loading = styled.div`
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`
+
 export default function RestaurantPage() {
     useProtectedPage()
     const { id } = useParams();
     const [restaurant, setRestaurant] = useState({});
     const [products, setProducts] = useState([]);
 
-    const priceMask = (price) => {        
+    const priceMask = (price) => {
         if (price === 0) {
             return "Grátis";
         } else if (price < 10) {
@@ -51,37 +60,51 @@ export default function RestaurantPage() {
         }
     }
     useEffect(() => {
-        axios.get(`${RestaurantDetailsGET}/${id}`, {headers: {"Content-Type": "application/json",
-        auth: window.localStorage.getItem("tknFutureEats")}})
-        .then(response => {
-            setRestaurant(response.data.restaurant);
-            setProducts(response.data.restaurant.products);
+        axios.get(`${RestaurantDetailsGET}/${id}`, {
+            headers: {
+                "Content-Type": "application/json",
+                auth: window.localStorage.getItem("tknFutureEats")
+            }
         })
-        .catch(error => {
-            console.log("Erro: "+error.response.data.message);
-        });
+            .then(response => {
+                setRestaurant(response.data.restaurant);
+                setProducts(response.data.restaurant.products);
+            })
+            .catch(error => {
+                console.log("Erro: " + error.response.data.message);
+            });
     }, []);
 
     return (
-        <div style={{display: "flex",flexDirection:"column", alignItems: "center", justifyContent: "center", width: "100%", height: "100%"}}>
+        <>
             <Header />
-            <SectionTitle>
-                <img src={restaurant.logoUrl} alt="restaurant" />
-                <strong>{restaurant.name}</strong>
-                <p>{restaurant.category}</p>
-                <div style={{display:"flex",alignItems:"flex-start",justifyContent:"center",width:"100%"}}>
-                    <p>{restaurant.deliveryTime} - {restaurant.deliveryTime+10} min</p>
-                    <p>{priceMask(restaurant.shipping)}</p>
+            {products && products.length > 0 ?
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%", height: "100%" }}>
+                    <SectionTitle>
+                        <img src={restaurant.logoUrl} alt="restaurant" />
+                        <strong>{restaurant.name}</strong>
+                        <p>{restaurant.category}</p>
+                        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", width: "100%" }}>
+                            <p>{restaurant.deliveryTime} - {restaurant.deliveryTime + 10} min</p>
+                            <p>{priceMask(restaurant.shipping)}</p>
+                        </div>
+                        <p>{restaurant.address}</p>
+                    </SectionTitle>
+                    {products.map(item => (
+                        <ProductCard key={item.id} product={item} />
+                    ))}
+                    <br />
+                    <br />
+                    <br />
+                    <br />
                 </div>
-                <p>{restaurant.address}</p>
-            </SectionTitle>
-            {products.map(item => (
-                <ProductCard key={item.id} product={item} />
-            ))}
-            <br />
-            <br />
-            <br />
-            <br />           
-        </div>
+
+                :
+                <Loading>
+                    <CircularProgress/>
+                </Loading>
+            
+            }
+        </>
     )
 }
