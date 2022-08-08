@@ -71,7 +71,7 @@ const Grayout = styled.span`
     }    
 `
 
-export const ModalQuantity = ({quantity, setQuantity, setTriggerModal, product}) => {
+export const ModalQuantity = ({quantity, setQuantity, setTriggerModal, product, setOrderList}) => {
     const [quantityInput, setQuantityInput] = useState(quantity);
 
     const handleSubmit = (e) => {
@@ -98,6 +98,7 @@ export const ModalQuantity = ({quantity, setQuantity, setTriggerModal, product})
         const cart = JSON.parse(localStorage.getItem("cart"));
         if (cart) {
             const newCart = cart.filter(item => item.id !== product.id);
+            setOrderList(newCart)
             localStorage.setItem("cart", JSON.stringify(newCart));
             setQuantity(0);
         } 

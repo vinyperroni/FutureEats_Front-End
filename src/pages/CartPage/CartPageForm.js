@@ -6,40 +6,42 @@ import { Button } from "@mui/material";
 import { ContainerForm, LineForm } from "./styled";
 import { useForm } from "../../hooks/useForm";
 import axios from "axios";
-import { Headers, PlaceOrderPOST } from "../../api/manifest";
+import { PlaceOrderPOST } from "../../api/manifest";
 import { useNavigate } from "react-router-dom";
 import { goToHome } from "../../routes/Coordinator";
 
 export const CartPageForm = () => {
   const [form, onChange, clearInput] = useForm({ paymentMethod: "" });
   const navigate = useNavigate();
-  const orderList = JSON.parse(window.localStorage.getItem('cart'));
+  const orderList = JSON.parse(window.localStorage.getItem("cart"));
+  const restaurantId = window.localStorage.getItem("restaurantId");
 
-  const productObject = orderList && orderList.map((p)=>{
-    return {quantity: p.quantity, id: p.id}
-  })
+  const productObject =
+    orderList &&
+    orderList.map((p) => {
+      return { quantity: p.quantity, id: p.id };
+    });
 
   const data = {
     products: productObject,
     paymentMethod: form.paymentMethod,
-  }
+  };
 
-  console.log(productObject);
-  console.log(data);
-
-
-  
   const placeOrder = () => {
     axios
-      .post(PlaceOrderPOST, data, {
-        headers: Headers
+      .post(`${PlaceOrderPOST}${restaurantId}/order`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          auth: window.localStorage.getItem("tknFutureEats")
+      },
       })
       .then((res) => {
-        alert("pedido realizado")
+        alert("pedido realizado");
         goToHome(navigate);
+        window.localStorage.removeItem("cart");
       })
       .catch((err) => {
-        console.log(err.data);
+        console.log(err.response.data.message);
       });
   };
 
@@ -47,8 +49,6 @@ export const CartPageForm = () => {
     e.preventDefault();
     placeOrder();
   };
-
-  console.log(form);
 
   return (
     <ContainerForm
@@ -65,24 +65,14 @@ export const CartPageForm = () => {
           onChange={onChange}
         >
           <FormControlLabel
-            value="Dinheiro"
+            value="money"
             control={<Radio required color="secondary" />}
             label="Dinheiro"
           />
           <FormControlLabel
-            value="Cartão de crédito"
+            value="creditcard"
             control={<Radio required color="secondary" />}
             label="Cartão de crédito"
-          />
-          <FormControlLabel
-            value="Cartão de dédito"
-            control={<Radio required color="secondary" />}
-            label="Cartão de dédito"
-          />
-          <FormControlLabel
-            value="Paypal"
-            control={<Radio required color="secondary" />}
-            label="Paypal"
           />
         </RadioGroup>
         <Button

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { secondaryColor, primaryColor } from "../../theme/colors";
 
-
 export const ContainerPage = styled.main`
   margin: 0 16px;
   max-width: 450px;
@@ -12,7 +11,7 @@ export const ContainerPage = styled.main`
 
 export const AddressCart = styled.div`
   background-color: #eeeeee;
-  height: 11vh;
+  height: 5em;
   margin: 0 -16px 0 -16px;
   max-width: 450px;
   p {
@@ -67,4 +66,17 @@ export const LineForm = styled.hr`
   margin-top: -6px;
   background-color: black;
   border-top: 1px solid black;
+`;
+
+export const RestaurantContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin: 1em 0;
+  & > span {
+    &:first-child {
+      color: ${primaryColor};
+    }
+    color: ${secondaryColor};
+  }
 `;

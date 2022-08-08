@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { TextField, Button } from "@mui/material";
 import { Header } from "../../components/Header/Header";
 import { useForm } from "../../hooks/useForm";
-import { Headers, ProfileGET, UpdateProfilePUT } from "../../api/manifest";
+import { ProfileGET, UpdateProfilePUT } from "../../api/manifest";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { goBack } from "../../routes/Coordinator";
@@ -41,7 +41,10 @@ export default function EditUserPage() {
     const getUserData = () => {
         axios
             .get(ProfileGET, {
-                headers: Headers
+                headers: {
+                    "Content-Type": "application/json",
+                    auth: window.localStorage.getItem("tknFutureEats")
+                }
             })
             .then((res) => {
                 setUser(res.data.user)
@@ -59,7 +62,10 @@ export default function EditUserPage() {
         event.preventDefault();
         axios
             .put(UpdateProfilePUT, form, {
-                headers: Headers
+                headers: {
+                    "Content-Type": "application/json",
+                    auth: window.localStorage.getItem("tknFutureEats")
+                }
             })
             .then(() => {
                 console.log("Alterou");
