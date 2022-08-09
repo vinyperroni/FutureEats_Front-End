@@ -1,9 +1,19 @@
 import styled from 'styled-components';
+import { keyframes } from 'styled-components';
 import { primaryColor } from '../../theme/colors';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import axios from 'axios';
 import { ActiveOrderGET } from '../../api/manifest';
 import { useEffect, useState } from 'react';
+
+const slideUp = keyframes`
+    from {
+        bottom: -80px;
+    }
+    to {
+        bottom: 50px;
+    }
+`;
 
 const ModalContainer = styled.div`
     width: 100%;
@@ -11,6 +21,7 @@ const ModalContainer = styled.div`
     display: ${ props => props.show ? 'flex' : 'none' };
     position: fixed;
     bottom: 50px;
+    animation: ${slideUp} 0.7s 1 ease-out;
 `;
 
 const DivIcon = styled.div`
